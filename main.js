@@ -4,6 +4,39 @@ const FULL_HEART = '♥'
 
 // Your JavaScript code goes here!
 
+//Changes heart glyph to heart var
+const newGlyph = document.querySelectorAll(".like-glyph");
+newGlyph.forEach(element => {
+  element.innerHTML = EMPTY_HEART;
+});
+
+
+//Hides Error message on refresh
+let hideMe = true;
+document.getElementById('modal').hidden = hideMe;
+
+
+//Listens for a click
+const imListening = document.getElementsByClassName("like");
+for(let i=0; i<imListening.length; i++){
+  imListening[i].addEventListener('click',function(){
+    const newGlyph = imListening.item(i).querySelector(".like-glyph");
+    mimicServerCall()
+    .then(function(response){
+      console.log(response)
+      if(newGlyph.innerHTML == EMPTY_HEART){
+        newGlyph.innerHTML = FULL_HEART;
+        alert("You done got liked son!")
+    }
+  }).catch((err) => {
+    hideMe = false;
+        document.getElementById('modal').hidden = hideMe;
+        newGlyph.innerHTML = EMPTY_HEART
+  })
+  }, false);
+  }
+
+
 
 
 
